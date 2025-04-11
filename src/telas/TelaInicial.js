@@ -1,7 +1,44 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function TelaInicial({navigation}) {
+
+  const [emailInput, setEmailInput] = useState('');
+  const [senhaInput, setSenhaInput] = useState('');
+  const [usuario, setUsuario] = useState(null)
+
+  useEffect(() => {
+    async function carregarUsuario() {
+      try {
+        const dados = await AsyncStorage.getItem("usuario")
+        if (dados) {
+          setUsuario(JSON.parse(dados))
+        }
+      } catch (error) {
+        console.error('Erro ao carregar os dados', error);
+      }
+    }
+    carregarUsuario()
+  }, [])
+
+  function VerificarUsuario() {
+
+    if (!usuario) {
+      Alert.alert("Erro", "Dados do usuário não carregados.");
+      return;
+    }
+
+    if (emailInput === usuario.email && senhaInput === usuario.senha){
+      navigation.navigate("TelaPrincipal")
+    } else {
+      Alert.alert('Erro', 'E-mail ou senha incorretos.');
+    }
+
+  }
+
+  
 
   return (
     <View style={styles.container}>
@@ -9,12 +46,18 @@ export default function TelaInicial({navigation}) {
       <StatusBar style="auto" />
       <TextInput style={styles.input}
           placeholder='Endereço de e-mail'
+          value={emailInput}
+          onChangeText={setEmailInput}
+          keyboardType="email-address"
       />
       <TextInput style={styles.input}
           placeholder='Senha'
+          value={senhaInput}
+          onChangeText={setSenhaInput}
       />
       <View style={styles.escolha}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+            onPress={VerificarUsuario} >
             <Text style = {{color: 'white', fontSize: 15}}>Entrar</Text>
           </TouchableOpacity>
           <View style={styles.cadastro}>

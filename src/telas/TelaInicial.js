@@ -1,129 +1,73 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default function TelaInicial({navigation}) {
-
-  const [emailInput, setEmailInput] = useState('');
-  const [senhaInput, setSenhaInput] = useState('');
-  const [usuario, setUsuario] = useState(null)
-
-  useEffect(() => {
-    async function carregarUsuario() {
-      try {
-        const dados = await AsyncStorage.getItem("usuario")
-        if (dados) {
-          setUsuario(JSON.parse(dados))
-        }
-      } catch (error) {
-        console.error('Erro ao carregar os dados', error);
-      }
-    }
-    carregarUsuario()
-  }, [])
-
-  function VerificarUsuario() {
-
-    if (!usuario) {
-      Alert.alert("Erro", "Dados do usuário não carregados.");
-      return;
-    }
-
-    if (emailInput === usuario.email && senhaInput === usuario.senha){
-      navigation.navigate("TelaPrincipal")
-    } else {
-      Alert.alert('Erro', 'E-mail ou senha incorretos.');
-    }
-
-  }
-
-  
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Literária</Text>
-      <StatusBar style="auto" />
-      <TextInput style={styles.input}
-          placeholder='Endereço de e-mail'
-          value={emailInput}
-          onChangeText={setEmailInput}
-          keyboardType="email-address"
-      />
-      <TextInput style={styles.input}
-          placeholder='Senha'
-          value={senhaInput}
-          onChangeText={setSenhaInput}
-      />
-      <View style={styles.escolha}>
-          <TouchableOpacity style={styles.button}
-            onPress={VerificarUsuario} >
-            <Text style = {{color: 'white', fontSize: 15}}>Entrar</Text>
+    <View style={styles.container}> 
+        <Image
+          source={require('../../assets/images/people.png')}
+          style={{ width: 300, height: 300 }}
+        />
+        <Text style={styles.text}>
+          Organize seus estudos, acompanhe seu progresso e alcance seus objetivos de forma inteligente e eficiente.
+        </Text>
+        <View style={styles.buttonArea}>
+          <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("TelaCadastro")}
+          >
+            <Text style={styles.text2}>INGRESSAR</Text>
           </TouchableOpacity>
-          <View style={styles.cadastro}>
-            <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate("TelaCadastro")}>
-                <Text style = {{color: 'white', fontSize: 15}}>Cadastre-se</Text>
-            </TouchableOpacity>
-          </View>
-      </View>
-      <View style= {styles.esqueci}>
-          <Text>
-            Esqueceu sua senha? <Text onPress={() => navigation.navigate("TelaRedefinirSenha")}
-                                      style={{color: '#7eaaff'}}
-                                >Clique aqui!</Text>
-          </Text>
-      </View>
+          <TouchableOpacity
+          onPress={() => navigation.navigate("TelaLogin")}
+          >
+            <Text style={styles.text3}>EU JÁ TENHO UMA CONTA</Text>
+          </TouchableOpacity>
+        </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF8F8',
+    backgroundColor: '#410445',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 70
+    justifyContent: 'flex-end',
+    padding: 10
   },
-  
-  title: {
+  text: {
+    color: 'white',
+    fontSize: 25,
+    textAlign: 'center',
+    paddingTop: 10
+  },
+  text2: {
+    color: '#F6DC43',
     fontSize: 20,
-    fontFamily: 'Poppins-Medium'
+    fontFamily: 'Poppins',
+    textAlign: 'center',
+    padding: 10
   },
-
-  input: {
-    height: 50,
-    width: 250,
-    backgroundColor: ' #E9DFC3',
-    borderWidth: 2,
-    borderColor: 'rgb(224, 214, 190)',
-    borderRadius: 10,
-    marginTop: 30,
+  text3: {
+    color: '#F6DC43',
+    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 20
   },
-
-  escolha: {
-    marginTop: 10
+  buttonArea: {
+    marginTop: 50,
+    marginVertical: 50,
+    marginTop: 100
   },
 
   button: {
-    marginVertical: 20,
-    backgroundColor: '#1B56FD',
-    width: 150,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#A5158C',
     borderWidth: 1,
-    borderColor: '#1B56FD',
-    borderRadius: 20,
-  },
-
-  cadastro: {
-    borderTopWidth: 1,
-    borderColor: 'gray',
-  },
-
-  esqueci: {
-    top: 100,
+    borderColor: '#410445',
+    borderRadius: 10,
+    width: 320,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
-});
+})

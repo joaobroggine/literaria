@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -38,8 +39,13 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.logo}>Literária</Text>
+    <LinearGradient
+      colors={['#A5158C', '#410445', '#2B022E']}
+      style={[styles.container]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      >
+      <Text style={styles.logo}>Login</Text>
       <StatusBar style="dark" />
       <View style={styles.inputContainer}>
         <TextInput
@@ -76,21 +82,21 @@ export default function Login({ navigation }) {
           </Text>
         </Text>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
   logo: {
     fontSize: 36,
-    color: '#2C3E50',
+    color: 'white',
+    fontWeight: 'bold',
     marginBottom: 40,
   },
   inputContainer: {
@@ -99,29 +105,30 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 55,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F6DC43',
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: '#F6DC43',
     borderRadius: 12,
     paddingHorizontal: 15,
     marginBottom: 20,
     fontSize: 16,
     color: '#212121',
+    elevation: 3
   },
   buttonEntrar: {
-    backgroundColor: '#3498DB',
+    backgroundColor: '#F6DC43',
+    borderRadius: 12,
+    paddingVertical: 15,
+    marginTop: 20,
     width: '100%',
     maxWidth: 300,
-    height: 50,
-    justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 12,
-    marginTop: 20,
     elevation: 3,
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
+    color: '#410445',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   footer: {
     marginTop: 30,
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     color: '#757575',
-    marginBottom: 10,
+    marginBottom: 10
   },
   linkText: {
     color: '#3498DB',

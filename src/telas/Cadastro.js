@@ -33,7 +33,7 @@ export default function Cadastro({ navigation }) {
       const dados = { nome, email, senha };
       await AsyncStorage.setItem('usuario', JSON.stringify(dados));
       Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
-      navigation.navigate("TelaLogin", {email, senha})
+      navigation.navigate("TelaLogin", {email, senha, nome})
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível cadastrar o usuário.');
       console.error('Erro ao cadastrar:', error);

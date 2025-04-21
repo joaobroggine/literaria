@@ -5,7 +5,9 @@ import TelaInicial from "./src/telas/TelaInicial";
 import RedefinirSenha from "./src/telas/RedefinirSenha";
 import Cadastro from "./src/telas/Cadastro";
 import Login from "./src/telas/Login";
-import TelaPrincipal from "./src/telas/TelaPrincipal";
+import TelaPrincipal from "./src/telas/(tabs)/App";
+import Geografia from "./src/telas/quiz/Geografia";
+
 
 export default function App() {
 
@@ -18,7 +20,8 @@ export default function App() {
         <Stack.Screen name="TelaLogin" component={Login} options={{headerShown:false}}/>
         <Stack.Screen name="TelaRedefinirSenha" component={RedefinirSenha} options={{headerShown:true}}/>
         <Stack.Screen name="TelaCadastro" component={Cadastro} options={{headerShown:false}}/>
-        <Stack.Screen name="TelaPrincipal" component={TelaPrincipal} options={{headerShown:true}}/>
+        <Stack.Screen name="TelaPrincipal" component={TelaPrincipal} options={{headerShown:false}}/>
+        <Stack.Screen name="Geografia" component={Geografia} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   )};

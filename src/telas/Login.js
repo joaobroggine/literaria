@@ -3,11 +3,10 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-export default function Login({navigation}) {
-
+export default function Login({ navigation }) {
   const [emailInput, setEmailInput] = useState('');
   const [senhaInput, setSenhaInput] = useState('');
-  const [usuario, setUsuario] = useState(null)
+  const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
     async function carregarUsuario() {
@@ -38,41 +37,44 @@ export default function Login({navigation}) {
 
   }
 
-  
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Literária</Text>
-      <StatusBar style="auto" />
-      <TextInput style={styles.input}
+      <Text style={styles.logo}>Literária</Text>
+      <StatusBar style="dark" />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
           placeholder='Endereço de e-mail'
           value={emailInput}
           onChangeText={setEmailInput}
           keyboardType="email-address"
-      />
-      <TextInput style={styles.input}
+          placeholderTextColor="#757575"
+        />
+        <TextInput
+          style={styles.input}
           placeholder='Senha'
           value={senhaInput}
           onChangeText={setSenhaInput}
-      />
-      <View style={styles.escolha}>
-          <TouchableOpacity style={styles.button}
-            onPress={VerificarUsuario} >
-            <Text style = {{color: 'white', fontSize: 15}}>Entrar</Text>
-          </TouchableOpacity>
-          <View style={styles.cadastro}>
-            <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate("TelaCadastro")}>
-                <Text style = {{color: 'white', fontSize: 15}}>Cadastre-se</Text>
-            </TouchableOpacity>
-          </View>
+          secureTextEntry={true}
+          placeholderTextColor="#757575"
+        />
       </View>
-      <View style= {styles.esqueci}>
-          <Text>
-            Esqueceu sua senha? <Text onPress={() => navigation.navigate("TelaRedefinirSenha")}
-                                      style={{color: '#7eaaff'}}
-                                >Clique aqui!</Text>
+      <TouchableOpacity style={styles.buttonEntrar} onPress={VerificarUsuario}>
+        <Text style={styles.buttonText}>Entrar</Text>
+      </TouchableOpacity>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
+          Não tem uma conta?{' '}
+          <Text onPress={() => navigation.navigate("TelaCadastro")} style={styles.linkText}>
+            Cadastre-se
           </Text>
+        </Text>
+        <Text style={styles.footerText}>
+          Esqueceu sua senha?{' '}
+          <Text onPress={() => navigation.navigate("TelaRedefinirSenha")} style={styles.linkText}>
+            Clique aqui!
+          </Text>
+        </Text>
       </View>
     </View>
   );
@@ -81,49 +83,57 @@ export default function Login({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF8F8',
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 70
+    padding: 20,
   },
-  
-  title: {
-    fontSize: 20,
-    fontFamily: 'Poppins-Medium'
+  logo: {
+    fontSize: 36,
+    color: '#2C3E50',
+    marginBottom: 40,
   },
-
+  inputContainer: {
+    width: '100%',
+    maxWidth: 300,
+  },
   input: {
+    height: 55,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    fontSize: 16,
+    color: '#212121',
+  },
+  buttonEntrar: {
+    backgroundColor: '#3498DB',
+    width: '100%',
+    maxWidth: 300,
     height: 50,
-    width: 250,
-    backgroundColor: ' #E9DFC3',
-    borderWidth: 2,
-    borderColor: 'rgb(224, 214, 190)',
-    borderRadius: 10,
-    marginTop: 30,
-  },
-
-  escolha: {
-    marginTop: 10
-  },
-
-  button: {
-    marginVertical: 20,
-    backgroundColor: '#1B56FD',
-    width: 150,
-    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#1B56FD',
-    borderRadius: 20,
+    borderRadius: 12,
+    marginTop: 20,
+    elevation: 3,
   },
-
-  cadastro: {
-    borderTopWidth: 1,
-    borderColor: 'gray',
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
   },
-
-  esqueci: {
-    top: 100,
-  }
+  footer: {
+    marginTop: 30,
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#757575',
+    marginBottom: 10,
+  },
+  linkText: {
+    color: '#3498DB',
+    fontWeight: 'bold',
+  },
 });

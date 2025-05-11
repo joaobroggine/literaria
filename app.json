@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.joaobroggine.literaria"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -27,6 +28,14 @@
     "plugins": [
       "expo-font",
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "976fbdf1-3e01-487d-bde3-4bfa0ba3505e"
+      }
+    }
   }
 }
